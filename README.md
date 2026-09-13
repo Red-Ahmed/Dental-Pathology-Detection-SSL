@@ -54,7 +54,8 @@ The dataset was analyzed for class imbalance, duplicate images, annotation consi
 
 
 ## Methodology
-'''
+
+```text
                          Dental X-ray Images
                                 │
                                 ▼
@@ -128,7 +129,6 @@ The dataset was analyzed for class imbalance, duplicate images, annotation consi
                                 │
                                 ▼
                        Tracking Analysis
-
 
 
 
