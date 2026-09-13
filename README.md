@@ -54,43 +54,80 @@ The dataset was analyzed for class imbalance, duplicate images, annotation consi
 
 
 ## Methodology
-
-Dental X-rays
-     │
-     ├─────────────── Part A ───────────────┐
-     │                                      │
-     ▼                                      ▼
-Dataset EDA                         YOLOv10 / YOLOv12 / YOLOv26
-     │                                      │
-     └──────────────────┬───────────────────┘
-                        ▼
-                 YOLOv12-m selected
-                        │
-                        ▼
-             Part B: 80% SSL Pool
-                        │
-        ┌───────────────┼───────────────┐
-        ▼               ▼               ▼
-     SimCLR            BYOL          I-JEPA/DINOv3
-                                        │
-                                        ▼
-                                  CNN Distillation
-        └───────────────┬───────────────┘
-                        ▼
-                  YOLOv12-m
-                        │
-                        ▼
-                 20% labeled data
-                        │
-                        ▼
-                 Detection Results
-                        │
-                        ▼
-                    ByteTrack
-                        │
-                        ▼
-                 Tracking Analysis
-
+'''
+                         Dental X-ray Images
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │  Part A: Data &       │
+                    │  Detection Baselines  │
+                    └───────────┬───────────┘
+                                │
+                    ┌───────────▼───────────┐
+                    │ Dataset EDA &          │
+                    │ Preprocessing          │
+                    └───────────┬───────────┘
+                                │
+              ┌─────────────────┼─────────────────┐
+              ▼                 ▼                 ▼
+          YOLOv10            YOLOv12            YOLOv26
+              │                 │                 │
+              └─────────────────┼─────────────────┘
+                                │
+                                ▼
+                       YOLOv12-m Selected
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │ Part B: Data          │
+                    │ Partitioning          │
+                    └───────────┬───────────┘
+                                │
+                     ┌──────────▼──────────┐
+                     │ 80% Unlabeled       │
+                     │ SSL Pool            │
+                     └──────────┬──────────┘
+                                │
+          ┌─────────────────────┼─────────────────────┐
+          ▼                     ▼                     ▼
+       SimCLR                  BYOL             I-JEPA / DINOv3
+          │                     │                     │
+          │                     │              ViT Representations
+          │                     │                     │
+          │                     │                     ▼
+          │                     │              CNN Distillation
+          │                     │                     │
+          └─────────────────────┼─────────────────────┘
+                                │
+                                ▼
+                       YOLOv12-m Backbone
+                                │
+                                ▼
+                     20% Labeled Data
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │ Dental Pathology      │
+                    │ Object Detection      │
+                    └───────────┬───────────┘
+                                │
+                                ▼
+                       Detection Results
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │ Best SSL Detector     │
+                    │ (DINOv3)              │
+                    └───────────┬───────────┘
+                                │
+                                ▼
+                           ByteTrack
+                                │
+                                ▼
+                     Multi-Object Tracking
+                                │
+                                ▼
+                       Tracking Analysis
 
 
 
